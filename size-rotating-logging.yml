@@ -62,7 +62,7 @@ handlers:
     datadog:
         level: 0
         class: logging.handlers.RotatingFileHandler
-        filename: ~/.prefect/prefect.log
+        filename: /var/log/prefect.log
         # maximum 10MB per log file
         maxBytes: 10485760
         # keep the last 5 log files in addition to the current log file
