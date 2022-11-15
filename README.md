@@ -10,7 +10,6 @@ Fortunately, integrating Prefect logs with Datadog only requires a few easy step
 5. Set up the Datadog Python plugin and tell it where to find your Prefect log file. 
 
 Let's dive in and cover each step in detail. 
-  
 
 ## Create custom Prefect logging configuration
 The Datadog agent reads log entries from files, and JSON log entries are the easiest way to get log data into Datadog. By default, Prefect doesn't output JSON logs, nor does it save logs to a file. Fortunately, adding both is easy. 
@@ -156,6 +155,4 @@ logs:
 
 Update `path` with the full path to the log file used in your Prefect log configuration. Then, update service with a descriptive name. Depending on your needs, you might choose a generic name like *Prefect flows*, or something more specific like *Prefect Orion server* or *Prefect ML training agent*. Consider using the same service name in several locations if you run multiple agents or run your flows in containers and want all your Prefect log entries grouped together in Datadog. 
 
-Next, restart the Datadog agent. Then, run a Prefect flow that generates log entries that you expect to show up given the logging settings you configured earlier. After a short delay, you'll see the log entries appear in Datadog:
-
-**<add screenshot>**
+Next, restart the Datadog agent. Then, run a Prefect flow that generates log entries that you expect to show up given the logging settings you configured earlier. After a short delay, you'll see the log entries appear in Datadog. To view them, sign into Datadog and click on `Logs` in the menu.
