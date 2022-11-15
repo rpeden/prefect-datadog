@@ -52,7 +52,7 @@ By default, this handler lets log files grow to 10MB. Adjust this to suit your n
 
 Note that the handler uses the `json` formatter discussed above to ensure Prefect writes the log entries in a format Datadog can parse without additional configuration.
 
-See [the Python docs](https://docs.python.org/3/library/logging.handlers.html#rotatingfilehandler) on `RotatingFileHandler` for additional configuration options. Any argument you can pass to the class constructor can be set in `logging.yml`. 
+See [the Python docs](https://docs.python.org/3/library/logging.handlers.html#rotatingfilehandler) on `RotatingFileHandler` for additional configuration options. Any argument you can pass to the class constructor can be set in `logging.yml`.
 
 **time-rotating-logging.yml**
 ```yaml
@@ -69,6 +69,33 @@ datadog:
 This handler rotates log files by time interval. It's set to use one log file per day, and keep logs for 7 prior days. 
 
 See the Python docs for more information about how you can configure `TimedRotatingFileHandler`. It offers many options for changing the logging interval and even the time of day when logs rollvoer to a new file. 
+
+Now that you've added a Dataog log handler, it's time to use it. Look in the `loggers` section of the example files and see how the new handler has been added to several Prefect loggers:
+
+```yaml
+loggers:
+    prefect:
+        level: "${PREFECT_LOGGING_LEVEL}"
+        handlers: [console, datadog]
+        propagate: no
+
+    prefect.extra:
+        level: "${PREFECT_LOGGING_LEVEL}"
+        handlers: [orion, console]
+        propagate: no
+
+    prefect.flow_runs:
+        level: NOTSET
+        handlers: [orion, console_flow_runs, datadog]
+        propagate: no
+
+    prefect.task_runs:
+        level: NOTSET
+        handlers: [orion, console_task_runs, datadog]
+        propagate: no
+```
+
+You may want to add your Datadog log handler to more or fewer loggers depending on your needs. See [the Prefect docs](https://docs.prefect.io/concepts/logs/) for more information on logging in Prefect.
 
 ## Running Prefect with custom logging configuration
 
@@ -121,8 +148,14 @@ instances:
 logs:
 
   - type: file
-    path: "<PATH_TO_PYTHON_LOG>.log"
-    service: "<YOUR_APPLICATION>"
+    path: "<path to your Prefect log>"
+    service: "<A descriptive name of your Prefect service>"
     source: python
     sourcecategory: sourcecode
 ```
+
+Update `path` with the full path to the log file used in your Prefect log configuration. Then, update service with a descriptive name. Depending on your needs, you might choose a generic name like *Prefect flows*, or something more specific like *Prefect Orion server* or *Prefect ML training agent*. Consider using the same service name in several locations if you run multiple agents or run your flows in containers and want all your Prefect log entries grouped together in Datadog. 
+
+Next, restart the Datadog agent. Then, run a Prefect flow that generates log entries that you expect to show up given the logging settings you configured earlier. After a short delay, you'll see the log entries appear in Datadog:
+
+**<add screenshot>**
