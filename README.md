@@ -70,7 +70,7 @@ This handler rotates log files by time interval. It's set to use one log file pe
 
 See the Python docs for more information about how you can configure `TimedRotatingFileHandler`. It offers many options for changing the logging interval and even the time of day when logs rollvoer to a new file. 
 
-## Runing Prefect with custom logging configuration
+## Running Prefect with custom logging configuration
 
 Whether you use one of this repository's `.yml` files or create your own, the next step is getting Prefect to use your logging configuration. 
 
