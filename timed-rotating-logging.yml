@@ -62,7 +62,7 @@ handlers:
     datadog:
         level: 0
         class: logging.handlers.TimedRotatingFileHandler
-        filename: ~/.prefect/log.txt
+        filename: /var/log/prefect.log
         when: 'D'
         interval: 1
         backupCount: 7
