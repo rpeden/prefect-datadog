@@ -27,7 +27,11 @@ All we need to do is use it when setting up a file logger. You'll want to set up
  * `RotatingFileHandler` — rotates logs based on log file size.
  * `TimedRotatingFileHandler` — rotates logs by time period.
  
-Either of these handlers to the default `logging.yml` configuration. To make things easy, this repository includes two Prefect logging config files - one for each `FileHandler`. Both include a new `datadog` entry in the `handlers` section. Let's take look at each of them:
+You can add either of these handlers to the default `logging.yml`. 
+
+To make things easy, this repository includes two Prefect logging config files - one for each `FileHandler`. Both include a new `datadog` entry in the `handlers` section. You can use either file as a starting point if you don't already use a customized `logging.yml`.
+
+Let's take look at each of them:
 
 **size-rotating-logging.yml**
 ```yaml
@@ -41,6 +45,13 @@ datadog:
     backupCount: 5
     formatter: json
 ```
+This handler caps log files at a specific size. Depending on your OS and/or machine setup, you may need to change `filename` to a location Prefect will be able to write to.
+
+By default, this handler lets log files grow to 10MB. Adjust this to suit your needs by changing the `maxBytes` property. The `backupCount` property controls how many old log files the log handler keeps in addition to the current log file. 
+
+Note that the handler uses the `json` formatter discussed above to ensure Prefect writes the log entries in a format Datadog can parse without additional configuration.
+
+See [the Python docs](https://docs.python.org/3/library/logging.handlers.html#rotatingfilehandler) on `RotatingFileHandler` for additional configuration options. Any argument you can pass to the class constructor can be set in `logging.yml`. 
 
 **time-rotating-logging.yml**
 ```yaml
@@ -53,3 +64,5 @@ datadog:
     backupCount: 7
     formatter: json
 ```
+
+This handler rotates log files by 
