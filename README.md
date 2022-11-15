@@ -46,7 +46,7 @@ datadog:
     backupCount: 5
     formatter: json
 ```
-This handler caps log files at a specific size. Depending on your OS and/or machine setup, you may need to change `filename` to a location Prefect will be able to write to. Note that your must provide the full path to the file; using '~' as a shortcut to the current user's home directory will not work.
+This handler caps log files at a specific size. Depending on your OS and machine setup, you may need to change `filename` to a location Prefect can write to. Note that you must provide the file's full path; using '~' as a shortcut to the current user's home directory will not work.
 
 By default, this handler lets log files grow to 10MB. Adjust this to suit your needs by changing the `maxBytes` property. The `backupCount` property controls how many old log files the log handler keeps in addition to the current log file. 
 
@@ -121,7 +121,7 @@ By default, the Datadog agent does not collect logs. Fortunately, enabling it is
 * `~/.datadog-agent/` on MacOS
 * `C:\ProgramData\Datadog\` on Windows
 
-Navigate to this folder and open the `datadog.yaml` file. Search for `logs_enabled` and you will find:
+Navigate to this folder and open the `datadog.yaml` file. Search for `logs_enabled`, and you will find:
 ```yaml
     logs_enabled: false
 ```
