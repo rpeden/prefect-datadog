@@ -2,7 +2,7 @@
 
 Prefect and Datadog are both great, and they're even greater when they work together. Sending Prefect logs to Datadog lets you use Datadog's log search, faceting, and notifications to keep track of how your tasks and flows are performing. 
 
-Fortunately, integrating Prefect logs with Datadog only requires a few easy steps:
+Fortunately, integrating Prefect logs with Datadog only takes a few steps:
 1. Create a custom Prefect `logging.yml` configuration that writes log entries to a file in JSON format.
 2. Run Prefect with your custom logging configuration.
 3. Install the Datadog agent.
