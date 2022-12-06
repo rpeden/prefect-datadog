@@ -75,23 +75,27 @@ Now that you've added a Dataog log handler, it's time to use it. Look in the `lo
 loggers:
     prefect:
         level: "${PREFECT_LOGGING_LEVEL}"
-        handlers: [console, datadog]
-        propagate: no
 
     prefect.extra:
         level: "${PREFECT_LOGGING_LEVEL}"
-        handlers: [orion, console]
-        propagate: no
+        handlers: [orion]
 
     prefect.flow_runs:
         level: NOTSET
-        handlers: [orion, console_flow_runs, datadog]
-        propagate: no
+        handlers: [orion, datadog]
 
     prefect.task_runs:
         level: NOTSET
-        handlers: [orion, console_task_runs, datadog]
-        propagate: no
+        handlers: [orion, datadog]
+
+    prefect.orion:
+        level: "${PREFECT_LOGGING_SERVER_LEVEL}"
+
+    prefect.client:
+        level: "${PREFECT_LOGGING_LEVEL}"
+
+    prefect.infrastructure:
+        level: "${PREFECT_LOGGING_LEVEL}"
 ```
 
 You may want to add your Datadog log handler to more or fewer loggers depending on your needs. See [the Prefect docs](https://docs.prefect.io/concepts/logs/) for more information on logging in Prefect.
