@@ -78,17 +78,17 @@ loggers:
 
     prefect.extra:
         level: "${PREFECT_LOGGING_LEVEL}"
-        handlers: [orion]
+        handlers: [api]
 
     prefect.flow_runs:
         level: NOTSET
-        handlers: [orion, datadog]
+        handlers: [api, datadog]
 
     prefect.task_runs:
         level: NOTSET
-        handlers: [orion, datadog]
+        handlers: [api, datadog]
 
-    prefect.orion:
+    prefect.server:
         level: "${PREFECT_LOGGING_SERVER_LEVEL}"
 
     prefect.client:
@@ -157,6 +157,6 @@ logs:
     sourcecategory: sourcecode
 ```
 
-Update `path` with the full path to the log file used in your Prefect log configuration. Then, update service with a descriptive name. Depending on your needs, you might choose a generic name like *Prefect flows*, or something more specific like *Prefect Orion server* or *Prefect ML training agent*. Consider using the same service name in several locations if you run multiple agents or run your flows in containers and want all your Prefect log entries grouped together in Datadog. 
+Update `path` with the full path to the log file used in your Prefect log configuration. Then, update service with a descriptive name. Depending on your needs, you might choose a generic name like *Prefect flows*, or something more specific like *Prefect server* or *Prefect ML training agent*. Consider using the same service name in several locations if you run multiple agents or run your flows in containers and want all your Prefect log entries grouped together in Datadog. 
 
 Next, restart the Datadog agent. Then, run a Prefect flow that generates log entries that you expect to show up given the logging settings you configured earlier. After a short delay, you'll see the log entries appear in Datadog. To view them, sign into Datadog and click on `Logs` in the menu.
