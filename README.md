@@ -111,7 +111,7 @@ The easiest way is putting your logging configuration in a file named `logging.y
 
 Alternatively, you can keep your logging configuration elsewhere and run the following to tell Prefect where to look for logging configuration:
 ```bash
-prefect config set PREFECT_LOGGING_SETTINGS_PATH=/path/to/your/prefect.log
+prefect config set PREFECT_LOGGING_SETTINGS_PATH=/path/to/your/logging.yml
 ```
 
 ## Install the Datadog agent
